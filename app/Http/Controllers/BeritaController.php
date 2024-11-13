@@ -140,4 +140,74 @@ class BeritaController extends Controller
             ], 200);
         }
     }
+
+    public function search(Request $request) {
+        $title = $request->title;
+
+        $news = Berita::where('title', 'LIKE', '%$title%')->get();
+
+        if ($news->isEmpty()) {
+            return response()->json([
+                'message' => 'Resource Not Found'
+            ], 404);
+        } else {
+            return response()->json([
+                'message' => 'Get Searched Resource'
+            ], 200);
+        }
+    }
+
+    public function sport(Request $request) {
+        $news = Berita::where('category', 'sport')->get();
+
+        if ($news->isEmpty()) {
+            return response()->json([
+                'message' => 'Data is empty',
+                'total' => 0
+            ], 404);
+        } else {
+            return response()->json([
+                'message' => 'Get Sport Resource',
+                'count' => $news->count(), 
+                'total' => Berita::where('category', 'sport')->count(), 
+                'data' => $news
+            ], 200);
+        }
+    }
+    public function finance(Request $request) {
+
+        $news = Berita::where('category', 'finance')->get();
+
+        if ($news->isEmpty()) {
+            return response()->json([
+                'message' => 'Data is empty',
+                'total' => 0
+            ], 404);
+        } else {
+            return response()->json([
+                'message' => 'Get Finance Resource',
+                'count' => $news->count(), 
+                'total' => Berita::where('category', 'finance')->count(), 
+                'data' => $news
+            ], 200);
+        }
+    }
+    public function automotive(Request $request) {
+        $news = Berita::where('category', 'automotive')->get();
+
+        if ($news->isEmpty()) {
+            return response()->json([
+                'message' => 'Data is empty',
+                'total' => 0
+            ], 404);
+        } else {
+            return response()->json([
+                'message' => 'Get Automotive Resource',
+                'count' => $news->count(), 
+                'total' => Berita::where('category', 'automotive')->count(), 
+                'data' => $news
+            ], 200);
+        }
+    }
+
 }
